@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>चहापाणी स्पेशल गेम ❤️</title>
+<style>
+:root{--pink:#ff5b91;--deep:#6b2d5c;--cream:#fff7ed;--ink:#35243b}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,"Noto Sans Devanagari",sans-serif;background:linear-gradient(135deg,#ffe2ec,#fff1d8);color:var(--ink);min-height:100vh}
+.wrap{max-width:980px;margin:auto;padding:18px}.top{text-align:center;padding:12px 8px}
+h1{margin:4px 0;color:#a52c67;font-size:clamp(25px,5vw,42px)}.sub{margin:5px;color:#71435e}
+.panel{background:#ffffffd9;border:2px solid #fff;border-radius:22px;padding:14px;box-shadow:0 12px 35px #8c3b5a20}
+.stats{display:flex;justify-content:space-around;gap:8px;flex-wrap:wrap;margin:12px 0}.stat{background:#fff0f5;border-radius:14px;padding:8px 16px;text-align:center;min-width:100px}.stat b{display:block;font-size:21px;color:#b22d69}
+#game{display:block;width:100%;height:auto;aspect-ratio:900/460;border-radius:18px;background:#b8e7ff;touch-action:manipulation}
+.controls{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap;margin-top:13px}
+button{border:0;border-radius:999px;padding:12px 22px;background:var(--pink);color:white;font-weight:800;font-size:16px;box-shadow:0 5px 0 #c33c70;cursor:pointer}
+button:active{transform:translateY(3px);box-shadow:0 2px 0 #c33c70}button.secondary{background:#7956a6;box-shadow:0 5px 0 #513576}
+.help{text-align:center;font-size:14px;color:#71435e;margin:12px 4px}.message{text-align:center;font-weight:700;min-height:28px;color:#9a2e62;margin:8px}
+.overlay{position:fixed;inset:0;background:#32152dcc;display:grid;place-items:center;padding:18px;z-index:4}.modal{max-width:460px;width:100%;background:#fff8f2;border-radius:26px;padding:26px;text-align:center;box-shadow:0 20px 60px #0005}.modal h2{color:#a52c67;margin:4px}.modal p{line-height:1.6}
+.hide{display:none!important}
+@media(max-width:550px){
+ .wrap{padding:8px}
+ .top{padding:8px 4px}
+ .top>div{font-size:32px!important}
+ h1{font-size:27px;line-height:1.25}
+ .sub{font-size:15px;line-height:1.45}
+ .panel{padding:9px;border-radius:18px}
+ .stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:8px 0 10px}
+ .stat{min-width:0;padding:9px 8px;font-size:14px}
+ .stat b{font-size:22px}
+ #game{display:block;width:100%;height:auto;aspect-ratio:900/460;min-height:0;object-fit:contain;border-radius:14px}
+ .message{font-size:16px;line-height:1.4;min-height:42px;margin:9px 3px}
+ .controls{gap:10px;margin-top:10px}
+ button{font-size:17px;padding:14px 18px;min-height:50px}
+ .help{font-size:14px;line-height:1.5}
+ .modal{padding:22px 18px}
+ .modal h2{font-size:23px}
+ .modal p{font-size:16px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <header class="top">
+  <div style="font-size:38px">☕ 💗 ☕</div>
+  <h1>चहापाणी स्पेशल गेम ☕❤️</h1>
+  <p class="sub">चहाचे कप गोळा कर… अडथळे टाळ… आणि प्रतिकला प्राचीपर्यंत पोहोचव! 💕</p>
+ </header>
+ <section class="panel">
+  <div class="stats">
+   <div class="stat">चहाचे कप<b id="cups">0 / 12</b></div>
+   <div class="stat">स्कोअर<b id="score">0</b></div>
+   <div class="stat">❤️ जीव<b id="lives">3</b></div>
+  </div>
+  <canvas id="game" width="900" height="460" aria-label="प्रतिकचा गेम"></canvas>
+  <div class="message" id="message">START दाब आणि प्रतिकला प्राचीपर्यंत घेऊन जा!</div>
+  <div class="controls">
+   <button class="secondary" id="jump">⬆ उडी मार</button>
+   <button class="secondary" id="sound">🔊 आवाज ON</button>
+   <button class="secondary" id="restart">↻ पुन्हा सुरू</button>
+  </div>
+  <p class="help">मोबाईल: स्क्रीनवर टॅप करा किंवा “उडी मार” दाबा · संगणक: SPACE / ↑ · चहाचे कप गोळा करा आणि काटे/खड्डे टाळा.</p>
+ </section>
+ <p class="help">खेळा, हसा आणि आमच्या आनंदात सहभागी व्हा! — प्रतिक ❤️ प्राची</p>
+</div>
+<div class="overlay" id="intro">
+ <div class="modal">
+  <div style="font-size:54px">🧑🏻‍🦱 ☕ 💗 👩🏻</div>
+  <h2>प्रतिकला प्राचीपर्यंत पोहोचवशील?</h2>
+  <p><b>चहापाणी सोहळ्याच्या</b> या खास गेममध्ये १२ चहाचे कप गोळा कर आणि खड्डे व काटे टाळ! 🌸</p>
+  <button id="play">चला, सुरू करूया! ❤️</button>
+ </div>
+</div>
+<div class="overlay hide" id="end">
+ <div class="modal">
+  <div style="font-size:58px" id="endIcon">💖</div>
+  <h2 id="endTitle">शाब्बास!</h2>
+  <p id="endText"></p>
+  <button id="acceptInvite" class="secondary">❤️ आमंत्रण स्वीकारले!</button>
+  <button id="again">पुन्हा खेळूया</button>
+ </div>
+</div>
+<div class="overlay hide" id="invite">
+ <div class="modal">
+  <div style="font-size:54px">☕💗🎉</div>
+  <h2>चहापाणी सोहळ्याचं आमंत्रण!</h2>
+  <p><b>प्रतिक ❤️ प्राची</b></p>
+  <p>आमच्या चहापाणी कार्यक्रमाला आवर्जून उपस्थित राहा!</p>
+  <p><b>आमच्या चहापाणी कार्यक्रमाला आवर्जून या आणि या खास क्षणाचे साक्षीदार व्हा!</b></p>
+  <p style="color:#a52c67"><b>तारीख:</b> 29/11/2026<br><b>वेळ:</b> दुपारी 12:00 वाजता<br><b>ठिकाण:</b> Central Park, Virar West</p>
+  <button id="closeInvite">धन्यवाद! ❤️</button>
+ </div>
+</div>
+<script>
+const canvas=document.getElementById('game'),ctx=canvas.getContext('2d');
+const $=id=>document.getElementById(id);
+let running=false,ended=false,frame=0,score=0,cups=0,lives=3,level=1,speed=5,ground=365;
+let player={x:120,y:ground-66,w:48,h:66,vy:0,jumping:false};
+let obstacles=[],tea=[],particles=[],spawn=0,teaSpawn=0;
+const rand=(a,b)=>Math.random()*(b-a)+a;
+function reset(){stopMusic();running=false;ended=false;frame=0;score=0;cups=0;lives=3;speed=2.8;player={x:120,y:ground-66,w:48,h:66,vy:0,jumping:false};obstacles=[];tea=[];particles=[];spawn=30;teaSpawn=30;updateStats();draw()}
+function updateStats(){$('cups').textContent=cups+' / 12';$('score').textContent=score;$('lives').textContent=lives}
+function jump(){if(!running){if(!ended)startGame();return}if(!player.jumping){player.vy=-14.5;player.jumping=true;playJump()}}
+function startGame(){reset();$('intro').classList.add('hide');$('end').classList.add('hide');running=true;audioReady();startMusic();$('message').textContent='छान! कप गोळा करत पुढे जा!';requestAnimationFrame(loop)}
+function addTea(){tea.push({x:940,y:rand(235,310),r:17,got:false})}
+function addObstacle(){let type=Math.random()<.55?'spike':'puddle';obstacles.push({x:940,w:type==='spike'?34:65,h:type==='spike'?35:12,type})}
+function drawBackground(){
+ let g=ctx.createLinearGradient(0,0,0,460);g.addColorStop(0,'#9ee0ff');g.addColorStop(1,'#e9f8ff');ctx.fillStyle=g;ctx.fillRect(0,0,900,460);
+ // sun and clouds
+ ctx.fillStyle='#fff1a8';ctx.beginPath();ctx.arc(770,75,38,0,Math.PI*2);ctx.fill();
+ for(let i=0;i<4;i++){let x=((i*260-frame*.35)%1100+1100)%1100-100,y=65+(i%2)*55;ctx.fillStyle='#ffffffb8';ctx.beginPath();ctx.arc(x,y,22,0,7);ctx.arc(x+25,y-10,28,0,7);ctx.arc(x+52,y,20,0,7);ctx.fill()}
+ // distant hills
+ ctx.fillStyle='#a8dba9';ctx.beginPath();ctx.moveTo(0,300);for(let x=0;x<=900;x+=20)ctx.lineTo(x,275+Math.sin((x+frame*.3)/90)*20);ctx.lineTo(900,460);ctx.lineTo(0,460);ctx.fill();
+ // path
+ ctx.fillStyle='#f7d8a9';ctx.fillRect(0,ground,900,95);ctx.fillStyle='#e9bd83';for(let x=-(frame*speed%70);x<900;x+=70)ctx.fillRect(x,ground+24,35,5);
+ ctx.fillStyle='#62b66b';ctx.fillRect(0,ground-8,900,10);
+}
+function drawPlayer(){
+ let x=player.x,y=player.y;
+ // shadow
+ ctx.fillStyle='#0002';ctx.beginPath();ctx.ellipse(x+25,ground+2,27,6,0,0,7);ctx.fill();
+ // legs
+ ctx.strokeStyle='#283a63';ctx.lineWidth=9;ctx.lineCap='round';ctx.beginPath();ctx.moveTo(x+18,y+48);ctx.lineTo(x+14,y+63);ctx.moveTo(x+34,y+48);ctx.lineTo(x+39,y+63);ctx.stroke();
+ // shirt
+ ctx.fillStyle='#3977bd';ctx.fillRect(x+8,y+27,34,28);
+ // arms
+ ctx.strokeStyle='#f0b68e';ctx.lineWidth=7;ctx.beginPath();ctx.moveTo(x+9,y+32);ctx.lineTo(x+1,y+47);ctx.moveTo(x+41,y+32);ctx.lineTo(x+49,y+44);ctx.stroke();
+ // head and hair
+ ctx.fillStyle='#f2bd98';ctx.beginPath();ctx.arc(x+25,y+16,17,0,7);ctx.fill();
+ ctx.fillStyle='#34251f';ctx.beginPath();ctx.arc(x+25,y+10,17,Math.PI,Math.PI*2);ctx.lineTo(x+40,y+15);ctx.quadraticCurveTo(x+29,y+7,x+14,y+18);ctx.fill();
+ ctx.fillStyle='#38232a';ctx.beginPath();ctx.arc(x+31,y+17,2,0,7);ctx.fill();
+ ctx.strokeStyle='#a44d55';ctx.lineWidth=1.5;ctx.beginPath();ctx.arc(x+29,y+22,5,.2,1.7);ctx.stroke();
+}
+function drawTea(t){ctx.save();ctx.translate(t.x,t.y);ctx.fillStyle='#fff';ctx.strokeStyle='#b84c70';ctx.lineWidth=3;ctx.beginPath();ctx.roundRect(-12,-10,24,22,5);ctx.fill();ctx.stroke();ctx.beginPath();ctx.arc(14,0,7,-1.2,1.2);ctx.stroke();ctx.fillStyle='#8a4a27';ctx.fillRect(-9,-7,18,5);ctx.font='15px sans-serif';ctx.fillText('☕',-9,5);ctx.restore()}
+function drawObstacle(o){if(o.type==='spike'){ctx.fillStyle='#d94e63';ctx.beginPath();ctx.moveTo(o.x,ground);ctx.lineTo(o.x+o.w/2,ground-o.h);ctx.lineTo(o.x+o.w,ground);ctx.fill();ctx.fillStyle='#ffb3bd';ctx.fillRect(o.x+5,ground-4,o.w-10,4)}else{ctx.fillStyle='#557d9c';ctx.beginPath();ctx.ellipse(o.x+o.w/2,ground+1,o.w/2,9,0,0,7);ctx.fill();ctx.fillStyle='#8dc4db';ctx.beginPath();ctx.ellipse(o.x+o.w/2,ground-2,o.w/2-9,4,0,0,7);ctx.fill()}}
+function drawPrachi(){let x=820,y=ground-85;ctx.fillStyle='#0002';ctx.beginPath();ctx.ellipse(x+25,ground+2,27,6,0,0,7);ctx.fill();ctx.fillStyle='#df4f8c';ctx.beginPath();ctx.moveTo(x+25,y+28);ctx.lineTo(x+2,y+82);ctx.lineTo(x+48,y+82);ctx.fill();ctx.fillStyle='#f1bc99';ctx.beginPath();ctx.arc(x+25,y+15,17,0,7);ctx.fill();ctx.fillStyle='#39251f';ctx.beginPath();ctx.arc(x+25,y+9,18,Math.PI,Math.PI*2);ctx.fill();ctx.strokeStyle='#39251f';ctx.lineWidth=5;ctx.beginPath();ctx.moveTo(x+39,y+15);ctx.quadraticCurveTo(x+55,y+36,x+43,y+50);ctx.stroke();ctx.fillStyle='#a52c67';ctx.font='bold 17px sans-serif';ctx.fillText('प्राची',x-2,y+105)}
+function draw(){drawBackground();drawPrachi();tea.forEach(drawTea);obstacles.forEach(drawObstacle);drawPlayer();ctx.fillStyle='#ffffffd9';ctx.font='bold 18px sans-serif';ctx.fillText('प्रतिक ➜ प्राची',22,35)}
+function collide(a,b){return a.x<b.x+b.w&&a.x+a.w>b.x&&a.y<b.y+b.h&&a.y+a.h>b.y}
+function loop(){
+ if(!running)return;frame++;score+=1;
+ player.y+=player.vy;player.vy+=.68;if(player.y>=ground-player.h){player.y=ground-player.h;player.vy=0;player.jumping=false}
+ if(--spawn<=0){addObstacle();spawn=rand(125,165)}
+ if(--teaSpawn<=0){addTea();teaSpawn=rand(105,145)}
+ obstacles.forEach(o=>o.x-=speed);tea.forEach(t=>t.x-=speed);
+ obstacles=obstacles.filter(o=>o.x>-100);tea=tea.filter(t=>t.x>-50&&!t.got);
+ for(let o of obstacles){let box={x:o.x+5,y:o.type==='spike'?ground-30:ground-12,w:o.w-10,h:o.type==='spike'?30:18};if(collide({x:player.x+7,y:player.y+5,w:player.w-14,h:player.h-5},box)){obstacles=obstacles.filter(v=>v!==o);lives--;playHit();updateStats();$('message').textContent='अरे! अडथळा लागला. काळजी घे!';if(lives<=0){finish(false);return}}}
+ for(let t of tea){let dx=(player.x+25)-t.x,dy=(player.y+30)-t.y;if(Math.hypot(dx,dy)<34){t.got=true;cups++;score+=100;playCollect();updateStats();$('message').textContent='वा! चहाचा कप मिळाला ☕';if(cups>=12){finish(true);return}}}
+ if(score%300===0)updateStats();draw();requestAnimationFrame(loop)
+}
+function finish(win){running=false;stopMusic();ended=true;if(win)playWin();draw();$('endIcon').textContent=win?'💖':'🥺';$('endTitle').textContent=win?'वा! प्रतिक पोहोचला प्राचीपर्यंत!':'गेम ओव्हर!';$('endText').textContent=win?`प्रतिकने ${cups} चहाचे कप गोळा केले आणि प्राचीला भेटला! ❤️ चहापाणी सोहळ्यात तुमची उपस्थिती हवीच!`:`प्रतिकला ${cups} कप मिळाले. अजून एकदा प्रयत्न कर आणि प्राचीपर्यंत पोहोच!`; $('end').classList.remove('hide')}
+$('play').onclick=startGame;$('jump').onclick=jump;$('restart').onclick=()=>{reset();$('intro').classList.remove('hide');$('end').classList.add('hide')};$('again').onclick=()=>{reset();$('end').classList.add('hide');startGame()};
+$('acceptInvite').onclick=()=>{$('end').classList.add('hide');$('invite').classList.remove('hide')};
+$('closeInvite').onclick=()=>{$('invite').classList.add('hide')};
+canvas.addEventListener('pointerdown',()=>{if(running)jump()});window.addEventListener('keydown',e=>{if(e.code==='Space'||e.code==='ArrowUp'){e.preventDefault();jump()}});
+
+// Original game audio: synthesized locally, no external music or downloads.
+let audioCtx=null, soundOn=true, musicTimer=null, musicStep=0;
+function audioReady(){
+  if(!audioCtx) audioCtx=new (window.AudioContext||window.webkitAudioContext)();
+  if(audioCtx.state==='suspended') audioCtx.resume();
+}
+function tone(freq,duration=0.12,type='sine',volume=0.055,delay=0){
+  if(!soundOn)return;
+  audioReady();
+  const t=audioCtx.currentTime+delay, osc=audioCtx.createOscillator(), gain=audioCtx.createGain();
+  osc.type=type;osc.frequency.setValueAtTime(freq,t);
+  gain.gain.setValueAtTime(0.0001,t);gain.gain.exponentialRampToValueAtTime(volume,t+0.015);
+  gain.gain.exponentialRampToValueAtTime(0.0001,t+duration);
+  osc.connect(gain);gain.connect(audioCtx.destination);osc.start(t);osc.stop(t+duration+0.03);
+}
+function playJingle(notes, gap=0.11, length=0.16){
+  notes.forEach((n,i)=>tone(n,length,'sine',0.045,i*gap));
+}
+function playCollect(){playJingle([660,784,988],0.075,0.12)}
+function playJump(){tone(420,0.10,'triangle',0.035);tone(620,0.12,'triangle',0.025,0.07)}
+function playHit(){tone(180,0.22,'sawtooth',0.045);tone(115,0.24,'triangle',0.04,0.12)}
+function playWin(){playJingle([523,659,784,1047,988,1047,1319],0.16,0.25)}
+function startMusic(){
+  if(!soundOn||musicTimer)return;
+  audioReady();
+  const melody=[523,659,784,659,587,698,880,698,523,659,784,1047,880,784,659,587];
+  musicTimer=setInterval(()=>{
+    if(!running||!soundOn)return;
+    tone(melody[musicStep%melody.length],0.20,'sine',0.018);
+    if(musicStep%4===0)tone([131,147,165,147][Math.floor(musicStep/4)%4],0.28,'triangle',0.012);
+    musicStep++;
+  },260);
+}
+function stopMusic(){if(musicTimer){clearInterval(musicTimer);musicTimer=null}}
+function toggleSound(){
+  soundOn=!soundOn;
+  $('sound').textContent=soundOn?'🔊 आवाज ON':'🔇 आवाज OFF';
+  if(soundOn){audioReady();if(running)startMusic();tone(700,0.1,'sine',0.03)}
+  else stopMusic();
+}
+
+$('sound').onclick=toggleSound;
+reset();
+</script>
+</body></html>
